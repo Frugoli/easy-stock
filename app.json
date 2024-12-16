@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "newArchEnabled": true,
+    "name": "easystock",
+    "slug": "easystock",
+    "scheme": "easystock",
+    "version": "1.0.0",
+    "plugins": ["expo-router", "expo-secure-store"]
+  }
+}
