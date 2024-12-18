@@ -98,8 +98,8 @@ export default function SignUp() {
           keyboardVerticalOffset={Platform.OS === "ios" ? 60 : 0}
         >
           <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-            <View className="flex-1 mt-10 landscape:hidden">
-              <Text className="text-center text-3xl landscape:hidden font-extrabold sm:text-6xl">
+            <View className="mt-10 flex-1 landscape:hidden">
+              <Text className="text-center text-3xl font-extrabold sm:text-6xl landscape:hidden">
                 Easy Stock
               </Text>
             </View>
@@ -169,14 +169,14 @@ export default function SignUp() {
                           secureTextEntry={hidePassword}
                         />
                         <TouchableOpacity
-                          className="absolute right-0 sm:pb-4"
+                          className="absolute bottom-1 right-0 sm:pb-4"
                           onPress={() => setHidePassword(!!!hidePassword)}
                         >
                           <Ionicons
                             name={
                               hidePassword ? "eye-off-outline" : "eye-outline"
                             }
-                            size={35}
+                            size={30}
                           />
                         </TouchableOpacity>
                       </View>
@@ -209,7 +209,7 @@ export default function SignUp() {
                           secureTextEntry={hideConfirmPassword}
                         />
                         <TouchableOpacity
-                          className="absolute right-0 sm:pb-4"
+                          className="absolute bottom-1 right-0 sm:pb-4"
                           onPress={() =>
                             setHideConfirmPassword(!!!hideConfirmPassword)
                           }
@@ -220,7 +220,7 @@ export default function SignUp() {
                                 ? "eye-off-outline"
                                 : "eye-outline"
                             }
-                            size={35}
+                            size={30}
                           />
                         </TouchableOpacity>
                       </View>
@@ -292,7 +292,7 @@ export default function SignUp() {
 
           <View className="flex-row justify-around">
             <TouchableOpacity
-              className=" bg-blue-500 py-4 rounded-2xl px-12"
+              className="rounded-2xl bg-blue-500 px-12 py-4"
               onPress={onVerifyPress}
             >
               <Text className="text-center text-lg font-bold text-white sm:text-2xl">
@@ -300,7 +300,7 @@ export default function SignUp() {
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
-              className="bg-red-500 py-4 rounded-2xl px-12"
+              className="rounded-2xl bg-red-500 px-12 py-4"
               onPress={() => router.replace("/sign-up")}
             >
               <Text className="text-center text-lg font-bold text-white sm:text-2xl">

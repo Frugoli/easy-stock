@@ -6,6 +6,7 @@ import * as WebBrowser from "expo-web-browser";
 import { useCallback } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
   Text,
@@ -23,7 +24,8 @@ import { signInUserSchema, userSignInInput } from "../../types/user-zod";
 WebBrowser.maybeCompleteAuthSession();
 
 export default function SignIn() {
-  const { hidePassword, setHidePassword } = useFormStates();
+  const { hidePassword, setHidePassword, isLoading, setIsLoading } =
+    useFormStates();
   const { shake, reanimatedShakeStyle } = useAnimatedShake();
   const { signIn, setActive, isLoaded } = useSignIn();
 
@@ -38,6 +40,8 @@ export default function SignIn() {
 
   const onSubmit = useCallback(
     async (data: userSignInInput) => {
+      setIsLoading(true);
+
       if (!isLoaded) return;
 
       try {
@@ -49,8 +53,10 @@ export default function SignIn() {
         if (signInAttempt.status === "complete") {
           await setActive({ session: signInAttempt.createdSessionId });
           router.replace("/home");
+          setIsLoading(false);
         }
       } catch (err) {
+        setIsLoading(false);
         console.log(err);
       }
     },
@@ -58,23 +64,23 @@ export default function SignIn() {
   );
 
   return (
-    <SafeAreaView className="flex-1 landscape:mb-64 landscape:mx-52">
+    <SafeAreaView className="flex-1 landscape:mx-52">
       <KeyboardAvoidingView
         className="flex-1"
         behavior={Platform.OS === "ios" ? "padding" : undefined}
         keyboardVerticalOffset={Platform.OS === "ios" ? 60 : 0}
       >
-        <View className="mt-10 flex-1 sm:mt-20">
+        <View className="mt-10 flex-1 sm:mt-20 landscape:hidden">
           <Text className="text-center text-3xl font-extrabold sm:text-6xl">
             Easy Stock
           </Text>
         </View>
 
-        <View className="flex-1">
+        <View className="flex-1 landscape:justify-center">
           <Controller
             control={reactHookForm.control}
             render={({ field: { value, onChange } }) => (
-              <View className="mx-10 mb-6 sm:mx-44 sm: sm:mb-12">
+              <View className="sm: mx-10 mb-6 sm:mx-44 sm:mb-12">
                 <TextInput
                   className="border-b border-black text-lg sm:pb-4 sm:text-2xl"
                   placeholder="Email"
@@ -109,12 +115,12 @@ export default function SignIn() {
                     secureTextEntry={hidePassword}
                   />
                   <TouchableOpacity
-                    className="absolute right-0 sm:pb-4"
+                    className="absolute bottom-1 right-0 sm:pb-4"
                     onPress={() => setHidePassword(!!!hidePassword)}
                   >
                     <Ionicons
                       name={hidePassword ? "eye-off-outline" : "eye-outline"}
-                      size={35}
+                      size={30}
                     />
                   </TouchableOpacity>
                 </View>
@@ -140,9 +146,13 @@ export default function SignIn() {
               className="flex-1 justify-center rounded-2xl bg-blue-500 px-12 py-4 sm:py-6"
               activeOpacity={0.8}
             >
-              <Text className="text-center text-lg font-bold text-white sm:text-2xl">
-                Sign In
-              </Text>
+              {isLoading ? (
+                <ActivityIndicator size={28} color="#fff" />
+              ) : (
+                <Text className="text-center text-lg font-bold text-white sm:text-2xl">
+                  Sign In
+                </Text>
+              )}
             </TouchableOpacity>
           </View>
 

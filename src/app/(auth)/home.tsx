@@ -1,13 +1,11 @@
-import { useUser } from "@clerk/clerk-expo";
-import { Text } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import QuickAccess from "@/components/quick-access";
+import { View } from "react-native";
 
 export default function Home() {
-  const { user } = useUser();
-
   return (
-    <SafeAreaView className="flex-1">
-      <Text>{user?.username}</Text>
-    </SafeAreaView>
+    <View className="flex-1">
+      {/* Cartões de acesso rápido */}
+      <QuickAccess />
+    </View>
   );
 }

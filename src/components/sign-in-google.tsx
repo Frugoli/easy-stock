@@ -21,7 +21,7 @@ export default function SignInGoogle() {
     try {
       const { createdSessionId, signIn, signUp, setActive } =
         await startOAuthFlow({
-          redirectUrl: Linking.createURL("/"),
+          redirectUrl: Linking.createURL("/", { scheme: "easystock" }),
         });
 
       // If sign in was successful, set the active session
