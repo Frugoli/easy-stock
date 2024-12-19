@@ -45,7 +45,7 @@ export default function SignUp() {
     resolver: zodResolver(signUpUserSchema),
     mode: "onSubmit",
     defaultValues: {
-      username: "",
+      firstName: "",
       email: "",
       password: "",
       confirmPassword: "",
@@ -55,9 +55,12 @@ export default function SignUp() {
   const onSubmit = async (data: userSignUpInput) => {
     if (!isLoaded) return;
 
+    console.log(data);
+
     try {
       await signUp.create({
-        username: data.username,
+        firstName: data.firstName,
+        lastName: data.lastName,
         emailAddress: data.email,
         password: data.password,
       });
@@ -111,23 +114,48 @@ export default function SignUp() {
                   <View className="mx-10 mb-6 sm:mx-44 sm:mb-12">
                     <TextInput
                       className="border-b border-black text-lg sm:pb-4 sm:text-2xl"
-                      placeholder="Username"
+                      placeholder="First Name"
                       value={value}
                       onChangeText={onChange}
                     />
 
-                    {errors.username && (
+                    {errors.firstName && (
                       <Animated.Text
                         onLayout={shake}
                         style={reanimatedShakeStyle}
                         className="mt-2 color-red-600 sm:text-xl"
                       >
-                        {errors.username.message}
+                        {errors.firstName.message}
                       </Animated.Text>
                     )}
                   </View>
                 )}
-                name="username"
+                name="firstName"
+              />
+
+              <Controller
+                control={control}
+                render={({ field: { value, onChange } }) => (
+                  <View className="mx-10 mb-6 sm:mx-44 sm:mb-12">
+                    <TextInput
+                      className="border-b border-black text-lg sm:pb-4 sm:text-2xl"
+                      placeholder="Last Name"
+                      value={value}
+                      onChangeText={onChange}
+                    />
+
+                    {errors.lastName && (
+                      <Animated.Text
+                        onLayout={shake}
+                        style={reanimatedShakeStyle}
+                        className="mt-2 color-red-600 sm:text-xl"
+                      >
+                        {errors.lastName.message}
+                      </Animated.Text>
+                    )}
+                  </View>
+                )}
+                name="lastName"
               />
 
               <Controller

@@ -11,10 +11,14 @@ export type userSignInInput = z.infer<typeof signInUserSchema>;
 
 export const signUpUserSchema = z
   .object({
-    username: z
+    firstName: z
       .string()
-      .min(3, { message: "Username must be at least 3 characters long" })
-      .regex(/^\S*$/, { message: "Username cannot contain spaces" }),
+      .min(3, { message: "First Name must be at least 3 characters long" })
+      .regex(/^\S*$/, { message: "First Name cannot contain spaces" }),
+    lastName: z
+      .string()
+      .min(3, { message: "Last Name must be at least 3 characters long" })
+      .regex(/^\S*$/, { message: "Last Name cannot contain spaces" }),
     email: z
       .string()
       .email({ message: "Please provide a valid email address" }),
